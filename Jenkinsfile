@@ -10,7 +10,7 @@ node {
                 color: "#0dcaf0"
             )
 
-            // sleep(time: 5)
+            sleep(time: 5)
             sh 'docker --version'
 
             slackSend(
