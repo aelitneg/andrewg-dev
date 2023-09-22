@@ -9,9 +9,19 @@ node {
                 color: "#0dcaf0"
             )
 
+            def commitMessages = []
 
-            echo "GIT_COMMIT ${env.GIT_COMMIT}"
-            echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
+            def checkoutVars = checkout([
+              $class: 'GitSCM',
+              branches: [[name: "main"]],
+              userRemoteConfigs: [[
+                credentialsId: 'andrewg_alitu',
+                url: 'git@github.com:aelitneg/andrewg-dev.git'
+              ]]
+            ])
+
+            echo "GIT_COMMIT ${checkoutVars.GIT_COMMIT}"
+            echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT ${checkoutVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
 
             slackSend(
                 channel: slackResponse.threadId,
