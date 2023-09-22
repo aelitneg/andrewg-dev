@@ -9,7 +9,7 @@ node {
                 color: "#0dcaf0"
             )
 
-            def lastSuccessfulBuild = currentBuild.rawBuild.getPreviousSuccessfulBuild()
+            def lastSuccessfulBuild = currentBuild.previousSuccessfulBuild
             if (lastSuccessfulBuild) {
               def commitMessages = []
 
@@ -23,8 +23,7 @@ node {
               ])
 
               changes.each { change ->
-                // echo "- $change.msg"
-                echo "change here..."
+                echo "- $change.msg"
               }
             }
 
