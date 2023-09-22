@@ -36,7 +36,7 @@ node {
             )
         }
     } catch (Exception e) {
-        echo $e
+        echo "$e"
 
         slackSend(
             channel: slackResponse.threadId,
