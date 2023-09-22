@@ -6,7 +6,7 @@ node {
       slackResponse = slackSend(
         channel: "#andrewg-dev",
         tokenCredentialId: 'slack-andrewg-dev',
-        message: "Build $JOB_NAME <${env.BUILD_URL}|(#${env.$BUILD_NUMBER})> started",
+        message: "Build $JOB_NAME <${env.BUILD_URL}|(#$BUILD_NUMBER)> started",
         color: "#0dcaf0"
       )
 
@@ -34,7 +34,7 @@ node {
         channel: slackResponse.threadId,
         timestamp: slackResponse.ts,
         tokenCredentialId: 'slack-andrewg-dev',
-        message: "Build $JOB_NAME <${env.BUILD_URL}|(#${env.$BUILD_NUMBER})> failed during Init stage!",
+        message: "Build $JOB_NAME <${env.BUILD_URL}|(#$BUILD_NUMBER)> failed during Init stage!",
         color: "danger"
       )
       slackSend(
@@ -59,7 +59,7 @@ node {
         channel: slackResponse.threadId,
         timestamp: slackResponse.ts,
         tokenCredentialId: 'slack-andrewg-dev',
-        message: "Build $JOB_NAME <${env.BUILD_URL}|(#${env.$BUILD_NUMBER})> failed during Build stage!",
+        message: "Build $JOB_NAME <${env.BUILD_URL}|(#$BUILD_NUMBER)> failed during Build stage!",
         color: "danger"
       )
       slackSend(
@@ -85,7 +85,7 @@ node {
         channel: slackResponse.threadId,
         timestamp: slackResponse.ts,
         tokenCredentialId: 'slack-andrewg-dev',
-        message: "Build $JOB_NAME <${env.BUILD_URL}|(#${env.$BUILD_NUMBER})> completed successfully!",
+        message: "Build $JOB_NAME <${env.BUILD_URL}|(#$BUILD_NUMBER)> completed successfully!",
         color: "good"
       )
     } catch (Exception e) {
@@ -93,7 +93,7 @@ node {
         channel: slackResponse.threadId,
         timestamp: slackResponse.ts,
         tokenCredentialId: 'slack-andrewg-dev',
-        message: "Build $JOB_NAME <${env.BUILD_URL}|(#${env.$BUILD_NUMBER})> failed during Deploy stage!",
+        message: "Build $JOB_NAME <${env.BUILD_URL}|(#$BUILD_NUMBER)> failed during Deploy stage!",
         color: "danger"
       )
       slackSend(
