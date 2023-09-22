@@ -1,7 +1,8 @@
 node {
   def slackResponse
-  try {
-    stage('Build') {
+
+  stage('Init') {
+    try {
       slackResponse = slackSend(
         channel: "#andrewg-dev",
         tokenCredentialId: 'slack-andrewg-dev',
@@ -26,34 +27,80 @@ node {
       slackSend(
         channel: slackResponse.threadId,
         tokenCredentialId: 'slack-andrewg-dev',
-        message: "Changes\n${commits}",
+        message: "Changes:\n${commits}",
       )
-
-      sleep(5)
-
+    } catch(Exception e) {
       slackSend(
-      channel: slackResponse.threadId,
-      timestamp: slackResponse.ts,
-      tokenCredentialId: 'slack-andrewg-dev',
-      message: "Build $JOB_NAME (#$BUILD_NUMBER) completed successfully!",
-      color: "good"
+        channel: slackResponse.threadId,
+        timestamp: slackResponse.ts,
+        tokenCredentialId: 'slack-andrewg-dev',
+        message: "Build $JOB_NAME (#$BUILD_NUMBER) failed during Init stage.",
+        color: "danger"
+      )
+      slackSend(
+        channel: slackResponse.threadId,
+        tokenCredentialId: 'slack-andrewg-dev',
+        message: e.message,
       )
     }
-  } catch (Exception e) {
-    echo "catching exception!"
-    // echo "$e"
+  }
 
-    slackSend(
-      channel: slackResponse.threadId,
-      timestamp: slackResponse.ts,
-      tokenCredentialId: 'slack-andrewg-dev',
-      message: "Build $JOB_NAME (#$BUILD_NUMBER) failed!",
-      color: "danger"
-    )
-    slackSend(
-      channel: slackResponse.threadId,
-      tokenCredentialId: 'slack-andrewg-dev',
-      message: e.message,
-    )
+  stage('Build') {
+    try {
+      slackSend(
+        channel: slackResponse.threadId,
+        tokenCredentialId: 'slack-andrewg-dev',
+        message: "Starting Build stage",
+      )
+
+      sleep(5) // Do build things...
+    } catch (Exception e) {
+      slackSend(
+        channel: slackResponse.threadId,
+        timestamp: slackResponse.ts,
+        tokenCredentialId: 'slack-andrewg-dev',
+        message: "Build $JOB_NAME (#$BUILD_NUMBER) failed during Build stage.",
+        color: "danger"
+      )
+      slackSend(
+        channel: slackResponse.threadId,
+        tokenCredentialId: 'slack-andrewg-dev',
+        message: e.message,
+      )
+    }
+  }
+
+  stage('Deploy') {
+    try {
+      slackSend(
+        channel: slackResponse.threadId,
+        tokenCredentialId: 'slack-andrewg-dev',
+        message: "Starting Deploy stage",
+      )
+
+      sleep(5) // Do deploy things...
+      sh 'docker --version' // this will cause a failure
+
+      slackSend(
+        channel: slackResponse.threadId,
+        timestamp: slackResponse.ts,
+        tokenCredentialId: 'slack-andrewg-dev',
+        message: "Build $JOB_NAME (#$BUILD_NUMBER) completed successfully!",
+        color: "good"
+      )
+    } catch (Exception e) {
+      slackSend(
+        channel: slackResponse.threadId,
+        timestamp: slackResponse.ts,
+        tokenCredentialId: 'slack-andrewg-dev',
+        message: "Build $JOB_NAME (#$BUILD_NUMBER) failed during Deploy stage.",
+        color: "danger"
+      )
+      slackSend(
+        channel: slackResponse.threadId,
+        tokenCredentialId: 'slack-andrewg-dev',
+        message: e.message,
+      )
+    }
   }
 }
