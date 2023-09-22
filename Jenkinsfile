@@ -19,7 +19,7 @@ node {
       ])
 
       def gitLog = sh(
-        script: "git log --pretty=format:'%s' ${commits.GIT_PREVIOUS_SUCCESSFUL_COMMIT}...${commits.GIT_COMMIT}",
+        script: "git log --pretty=format:'- %s' ${commits.GIT_PREVIOUS_SUCCESSFUL_COMMIT}...${commits.GIT_COMMIT}",
         returnStdout: true
       ).trim()
 
@@ -27,7 +27,7 @@ node {
       channel: slackResponse.threadId,
       timestamp: slackResponse.ts,
       tokenCredentialId: 'slack-andrewg-dev',
-      message: "Build $JOB_NAME (#$BUILD_NUMBER) completed successfully.\n${gitLog}",
+      message: "Build $JOB_NAME (#$BUILD_NUMBER) completed successfully.\nChanges:\n${gitLog}",
       color: "good"
       )
     }
