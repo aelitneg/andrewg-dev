@@ -36,6 +36,8 @@ node {
             )
         }
     } catch (Exception e) {
+        echo $e
+
         slackSend(
             channel: slackResponse.threadId,
             timestamp: slackResponse.ts,
@@ -46,7 +48,7 @@ node {
         slackSend(
             channel: slackResponse.threadId,
             tokenCredentialId: 'slack-andrewg-dev',
-            message: e.message,
+            message: e,
         )
     }
 }
