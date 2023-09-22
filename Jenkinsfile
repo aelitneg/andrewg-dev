@@ -22,6 +22,7 @@ node {
 
             echo "GIT_COMMIT ${checkoutVars.GIT_COMMIT}"
             echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT ${checkoutVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
+            echo "checkoutVars ${checkoutVars}"
 
             slackSend(
                 channel: slackResponse.threadId,
