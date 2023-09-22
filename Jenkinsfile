@@ -23,7 +23,8 @@ node {
               ])
 
               changes.each { change ->
-                echo "- $change.msg"
+                // echo "- $change.msg"
+                echo "change here..."
               }
             }
 
