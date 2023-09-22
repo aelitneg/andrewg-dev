@@ -11,7 +11,7 @@ node {
 
             def commitMessages = []
 
-            def checkoutVars = checkout([
+            def commits = checkout([
               $class: 'GitSCM',
               branches: [[name: "main"]],
               userRemoteConfigs: [[
@@ -20,9 +20,7 @@ node {
               ]]
             ])
 
-            echo "GIT_COMMIT ${checkoutVars.GIT_COMMIT}"
-            echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT ${checkoutVars.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
-            echo "checkoutVars ${checkoutVars}"
+            git log --pretty=format:'%s' commits.GIT_PREVIOUS_SUCCESSFUL_COMMIT..commits.GIT_PREVIOUS_SUCCESSFUL_COMMIT
 
             slackSend(
                 channel: slackResponse.threadId,
