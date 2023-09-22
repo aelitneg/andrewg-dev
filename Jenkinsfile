@@ -42,6 +42,7 @@ node {
         tokenCredentialId: 'slack-andrewg-dev',
         message: "Error: $e.message",
       )
+      error(e)
     }
   }
 
@@ -67,6 +68,7 @@ node {
         tokenCredentialId: 'slack-andrewg-dev',
         message: "Error: $e.message",
       )
+      error(e)
     }
   }
 
@@ -101,6 +103,7 @@ node {
         tokenCredentialId: 'slack-andrewg-dev',
         message: "Error: $e.message",
       )
+      error(e)
     }
   }
 }
