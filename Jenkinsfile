@@ -5,7 +5,7 @@ node {
       slackResponse = slackSend(
         channel: "#andrewg-dev",
         tokenCredentialId: 'slack-andrewg-dev',
-        message: "Build $JOB_NAME (#$BUILD_NUMBER) started.",
+        message: "Build $JOB_NAME (#$BUILD_NUMBER) started.\nChanges:\n${gitLog}",
         color: "#0dcaf0"
       )
 
