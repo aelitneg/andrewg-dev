@@ -48,7 +48,7 @@ node {
         slackSend(
             channel: slackResponse.threadId,
             tokenCredentialId: 'slack-andrewg-dev',
-            message: e,
+            message: e.message,
         )
     }
 }
