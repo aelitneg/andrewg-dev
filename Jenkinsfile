@@ -81,7 +81,7 @@ node {
       )
 
       sleep(5) // Do deploy things...
-      sh 'docker --version' // this will cause a failure
+      // sh 'docker --version' // this will cause a failure
 
       slackSend(
         channel: slackResponse.threadId,
