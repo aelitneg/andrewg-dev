@@ -10,8 +10,8 @@ node {
             )
 
 
-            echo "GIT_COMMIT $GIT_COMMIT"
-            echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT $GIT_PREVIOUS_SUCCESSFUL_COMMIT"
+            echo "GIT_COMMIT ${env.GIT_COMMIT}"
+            echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
 
             slackSend(
                 channel: slackResponse.threadId,
