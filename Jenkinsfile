@@ -1,7 +1,6 @@
 node {
     def slackResponse
     try {
-        // Define your pipeline stages
         stage('Build') {
             slackResponse = slackSend(
                 channel: "#andrewg-dev",
@@ -10,8 +9,23 @@ node {
                 color: "#0dcaf0"
             )
 
-            sleep(time: 5)
-            sh 'docker --version'
+            def lastSuccessfulBuild = currentBuild.rawBuild.getPreviousSuccessfulBuild()
+            if (lastSuccessfulBuild) {
+              def commitMessages = []
+
+              def changes = checkout([
+                $class: 'GitSCM',
+                branches: [[name: "main"]],
+                userRemoteConfigs: [[
+                  credentialsId: 'andrewg_alitu',
+                  url: 'git@github.com:aelitneg/andrewg-dev.git'
+                ]]
+              ])
+
+              changes.each { change ->
+                echo "- $change.msg"
+              }
+            }
 
             slackSend(
                 channel: slackResponse.threadId,
