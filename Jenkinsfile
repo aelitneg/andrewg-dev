@@ -12,7 +12,7 @@ node {
       ])
 
       def gitLog = sh(
-        script: "git log --pretty=format:'- %s' ${commits.GIT_PREVIOUS_SUCCESSFUL_COMMIT}...${commits.GIT_COMMIT}",
+        script: "git log --pretty=format:'%h - %an: %s' ${commits.GIT_PREVIOUS_SUCCESSFUL_COMMIT}...${commits.GIT_COMMIT}",
         returnStdout: true
       ).trim()
 
