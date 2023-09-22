@@ -2,13 +2,6 @@ node {
   def slackResponse
   try {
     stage('Build') {
-      slackResponse = slackSend(
-        channel: "#andrewg-dev",
-        tokenCredentialId: 'slack-andrewg-dev',
-        message: "Build $JOB_NAME (#$BUILD_NUMBER) started.\nChanges:\n${gitLog}",
-        color: "#0dcaf0"
-      )
-
       def commits = checkout([
         $class: 'GitSCM',
         branches: [[name: "main"]],
@@ -22,6 +15,15 @@ node {
         script: "git log --pretty=format:'- %s' ${commits.GIT_PREVIOUS_SUCCESSFUL_COMMIT}...${commits.GIT_COMMIT}",
         returnStdout: true
       ).trim()
+
+      slackResponse = slackSend(
+        channel: "#andrewg-dev",
+        tokenCredentialId: 'slack-andrewg-dev',
+        message: "Build $JOB_NAME (#$BUILD_NUMBER) started.\nChanges:\n${gitLog}",
+        color: "#0dcaf0"
+      )
+
+      sleep(5)
 
       slackSend(
       channel: slackResponse.threadId,
