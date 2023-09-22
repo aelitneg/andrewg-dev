@@ -40,7 +40,7 @@ node {
       slackSend(
         channel: slackResponse.threadId,
         tokenCredentialId: 'slack-andrewg-dev',
-        message: e.message,
+        message: "Error: $e.message",
       )
     }
   }
@@ -65,7 +65,7 @@ node {
       slackSend(
         channel: slackResponse.threadId,
         tokenCredentialId: 'slack-andrewg-dev',
-        message: e.message,
+        message: "Error: $e.message",
       )
     }
   }
@@ -99,7 +99,7 @@ node {
       slackSend(
         channel: slackResponse.threadId,
         tokenCredentialId: 'slack-andrewg-dev',
-        message: e.message,
+        message: "Error: $e.message",
       )
     }
   }
