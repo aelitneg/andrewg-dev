@@ -20,7 +20,7 @@ node {
               ]]
             ])
 
-            git log --pretty=format:'%s' commits.GIT_PREVIOUS_SUCCESSFUL_COMMIT..commits.GIT_PREVIOUS_SUCCESSFUL_COMMIT
+            sh "git log --pretty=format:'%s' ${commits.GIT_PREVIOUS_SUCCESSFUL_COMMIT}...${commits.GIT_COMMIT}"
 
             slackSend(
                 channel: slackResponse.threadId,
