@@ -9,23 +9,9 @@ node {
                 color: "#0dcaf0"
             )
 
-            def lastSuccessfulBuild = currentBuild.previousSuccessfulBuild
-            if (lastSuccessfulBuild) {
-              def commitMessages = []
 
-              def changes = checkout([
-                $class: 'GitSCM',
-                branches: [[name: "main"]],
-                userRemoteConfigs: [[
-                  credentialsId: 'andrewg_alitu',
-                  url: 'git@github.com:aelitneg/andrewg-dev.git'
-                ]]
-              ])
-
-              changes.each { change ->
-                echo "- $change.msg"
-              }
-            }
+            echo "GIT_COMMIT $GIT_COMMIT"
+            echo "GIT_PREVIOUS_SUCCESSFUL_COMMIT $GIT_PREVIOUS_SUCCESSFUL_COMMIT"
 
             slackSend(
                 channel: slackResponse.threadId,
