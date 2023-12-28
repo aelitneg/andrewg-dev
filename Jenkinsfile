@@ -5,7 +5,7 @@ node {
     try {
       slackResponse = slackSend(
         channel: "#andrewg-dev",
-        tokenCredentialId: 'slack-andrewg-dev',
+        tokenCredentialId: 'slack-app-token',
         message: "Build $JOB_NAME <${env.BUILD_URL}|(#$BUILD_NUMBER)> started",
         color: "#0dcaf0"
       )
@@ -26,20 +26,20 @@ node {
 
       slackSend(
         channel: slackResponse.threadId,
-        tokenCredentialId: 'slack-andrewg-dev',
+        tokenCredentialId: 'slack-app-token',
         message: "Changes:\n${commits}",
       )
     } catch(Exception e) {
       slackSend(
         channel: slackResponse.threadId,
         timestamp: slackResponse.ts,
-        tokenCredentialId: 'slack-andrewg-dev',
+        tokenCredentialId: 'slack-app-token',
         message: "Build $JOB_NAME <${env.BUILD_URL}|(#$BUILD_NUMBER)> failed during Init stage!",
         color: "danger"
       )
       slackSend(
         channel: slackResponse.threadId,
-        tokenCredentialId: 'slack-andrewg-dev',
+        tokenCredentialId: 'slack-app-token',
         message: "Error: $e.message",
       )
       error(e)
@@ -50,7 +50,7 @@ node {
     try {
       slackSend(
         channel: slackResponse.threadId,
-        tokenCredentialId: 'slack-andrewg-dev',
+        tokenCredentialId: 'slack-app-token',
         message: "Starting Build stage",
       )
 
@@ -59,13 +59,13 @@ node {
       slackSend(
         channel: slackResponse.threadId,
         timestamp: slackResponse.ts,
-        tokenCredentialId: 'slack-andrewg-dev',
+        tokenCredentialId: 'slack-app-token',
         message: "Build $JOB_NAME <${env.BUILD_URL}|(#$BUILD_NUMBER)> failed during Build stage!",
         color: "danger"
       )
       slackSend(
         channel: slackResponse.threadId,
-        tokenCredentialId: 'slack-andrewg-dev',
+        tokenCredentialId: 'slack-app-token',
         message: "Error: $e.message",
       )
       error(e)
@@ -76,7 +76,7 @@ node {
     try {
       slackSend(
         channel: slackResponse.threadId,
-        tokenCredentialId: 'slack-andrewg-dev',
+        tokenCredentialId: 'slack-app-token',
         message: "Starting Deploy stage",
       )
 
@@ -86,7 +86,7 @@ node {
       slackSend(
         channel: slackResponse.threadId,
         timestamp: slackResponse.ts,
-        tokenCredentialId: 'slack-andrewg-dev',
+        tokenCredentialId: 'slack-app-token',
         message: "Build $JOB_NAME <${env.BUILD_URL}|(#$BUILD_NUMBER)> completed successfully!",
         color: "good"
       )
@@ -94,13 +94,13 @@ node {
       slackSend(
         channel: slackResponse.threadId,
         timestamp: slackResponse.ts,
-        tokenCredentialId: 'slack-andrewg-dev',
+        tokenCredentialId: 'slack-app-token',
         message: "Build $JOB_NAME <${env.BUILD_URL}|(#$BUILD_NUMBER)> failed during Deploy stage!",
         color: "danger"
       )
       slackSend(
         channel: slackResponse.threadId,
-        tokenCredentialId: 'slack-andrewg-dev',
+        tokenCredentialId: 'slack-app-token',
         message: "Error: $e.message",
       )
       error(e)
